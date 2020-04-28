@@ -11,7 +11,14 @@ class Api extends RestController
         parent::__construct();
     }
 
-    public function users_get()
+    public function users_get($id_user = '')
     {
+        if ($id_user == '') {
+            $user = $this->db->get('user')->result();
+        } else {
+            $this->db->where('id_user', $id_user);
+            $user = $this->db->get('user')->result();
+        }
+        $this->response($user, 200);
     }
 }
